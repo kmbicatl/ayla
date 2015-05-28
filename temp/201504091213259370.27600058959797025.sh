@@ -1,0 +1,1 @@
+curl -X POST -d '{"user":{"email":"sgudimela@kmbs.konicaminolta.us", "password":"abcd1234", "application":{"app_id":"aMCA-id","app_secret":"aMCA-9097620"}}}' -H "Content-Type:application/json" https://user.aylanetworks.com/users/sign_in.json > res201504091213259370.27600058959797025.sh

@@ -1,0 +1,81 @@
+<div class="row">
+	<div class="panel panel-primary">
+		<div class="panel-heading" style="height:50px">
+			<h4 class="icons col-lg-3">Role Products Mapping</h4>
+		</div>
+		<div class="panel-body">
+			<div class="row" style="text-align: center;height:50px">
+				<div>
+					<form id="formSelRole" name="formSelRole" action="#">
+						<select id="selRole" name="roleId" placeHolder="Choose Role">
+							<option value="0">Select Role</option>
+						</select>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="form-group">
+					<div class="input-group">
+						<input id="box1Filter" type="text" placeholder="Product to select for mapping against role" class="form-control" />
+						<span class="input-group-btn">
+							<button id="box1Clear" class="btn btn-warning" type="button">x</button>
+						</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<select id="box1View" multiple="multiple" class="form-control" size="10">
+					</select>
+					<hr>
+					<div class="alert alert-block">
+						<span id="box1Counter" class="countLabel"></span>
+						<select id="box1Storage" class="form-control"></select>
+					</div>
+				</div>
+			</div>
+		
+			<div class="col-lg-2">
+				<div class="btn-group btn-group-vertical" style="white-space: normal;">
+					<button id="to2" type="button" class="btn btn-primary">
+						<i class="icon-chevron-right"></i>
+					</button>
+					<button id="allTo2" type="button" class="btn btn-primary">
+						<i class="icon-forward"></i>
+					</button>
+					<button id="allTo1" type="button" class="btn btn-danger">
+						<i class="icon-backward"></i>
+					</button>
+					<button id="to1" type="button" class="btn btn-danger">
+						<i class=" icon-chevron-left icon-white"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="form-group">
+					<div class="input-group">
+						<input id="box2Filter" type="text" placeholder="Mapped products for given role" class="form-control" />
+						<span class="input-group-btn">
+							<button id="box2Clear" class="btn btn-warning" type="button">x</button>
+						</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<form autocomplete="off" action="#" class="form-horizontal" id="formRoleProducts" name="formRoleProducts">
+						<select id="box2View" multiple="multiple" class="form-control" size="10"></select>
+					</form>
+				</div>
+				<hr />
+
+				<div class="alert alert-block">
+					<span id="box2Counter" class="countLabel"></span>
+					<select id="box2Storage" class="form-control"> </select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		accessController();
+	});
+</script>

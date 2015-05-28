@@ -1,0 +1,34 @@
+formApp = angular.module('formApp',[])
+.controller('ClientsController',['$scope',function($scope){
+
+
+
+
+	$scope.master = {};
+
+	$scope.save = function(){
+
+
+
+
+			alert(JSON.stringify($scope.client));
+			if($scope.client.name) {
+				alert('Here');
+                alert(JSON.stringify($scope.client));
+
+            } 
+			alert('HereBefore');
+				event.returnValue = false;
+				alert(1);
+				return false;
+
+			
+	}
+
+	$scope.reset = function(){
+		$scope.client = angular.copy($scope.master);
+	}
+	
+	$scope.reset();
+
+}]);

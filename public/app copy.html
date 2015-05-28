@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Get Data </TITLE>
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/plugins/switch/static/stylesheets/bootstrap-switch.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/MoneAdmin.css" />
+    <link rel="stylesheet" href="assets/plugins/Font-Awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/plugins/magic/magic.css" />
+
+    <!--END GLOBAL STYLES -->
+
+    <!-- PAGE LEVEL STYLES -->
+     <link rel="stylesheet" href="assets/plugins/validationengine/css/validationEngine.jquery.css" />
+     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+	 <link rel="stylesheet" href="assets/plugins/chosen/chosen.min.css" />
+
+	<link href="assets/plugins/flot/examples/examples.css" rel="stylesheet" />
+	    <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+    <script src="assets/plugins/angular.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+	<script>
+	var myToken = '';
+
+		angular.module('formApp', [])
+		.controller('formPostData', [ '$scope','$http' ,function($scope,$http) {
+			$scope.saveData=function(){
+				$.ajax({url:'/saveData',data:$scope.formData})
+				.always(function(data){
+						data = JSON.parse(data);
+						$('#bdy').html(JSON.stringify(data));
+					}
+				)
+			}
+
+			$scope.getData=function(){
+				$.ajax({url:'/getData',data:$scope.formData})
+				.always(function(data){
+					//data = data.replace(/"{/g,'{');
+					//data = data.replace(/}"/g,'}');
+					console.log(JSON.stringify(data));
+					data = jQuery.parseJSON(data);
+				$('#taGetData').val(JSON.stringify(data,null,'\n\t'));
+				return;
+						
+  						window.lastData = data;
+						//data = jQuery.parseJSON(data);
+					
+							var myStr = {};
+							var ids = [];
+							var testAPIRec = '';
+							for(talI=0;talI<data.list.length;talI++){
+								//data['list'][0].collectionRec[talI] = jQuery.parseJSON(data['list'][0].collectionRec[talI]);
+								testAPIRec = data.list[talI].data;
+								for(_id in testAPIRec){
+									if(myStr[_id]){
+										myStr[_id][myStr[_id].length]  = testAPIRec[_id];
+									} else {
+										ids[ids.length] = _id;
+										myStr[_id] = new Array();
+										myStr[_id][myStr[_id].length]  = testAPIRec[_id];
+									}
+								}
+							}			
+							
+							var optStr = '';
+							for(talI=0;talI<ids.length;talI++){
+								optStr += '<div class="row"><select id="sel'+ids[talI]+'" onchange="setFacetFilter()" style="width:200px" class="form-control">'
+								optStr += '<option value="" selected>'+ids[talI]+'</option>';
+								for(talJ=0;talJ<myStr[ids[talI]].length;talJ++){
+									optStr += '<option value="'+myStr[ids[talI]][talJ]+'">'+myStr[ids[talI]][talJ]+'</option>';
+								}
+								optStr += '</select></div>';
+							}
+							$('#bdy1').html('<div class="row"><div class="col-lg-3" style="margin-left:20px">'+optStr+'</div><div class="col-lg-8"><pre id="preFacetFilterResult"></pre></div></div>');
+							optStr = '';
+							testAPIRec = '';
+							myStr = {};
+							ids = [];
+					}
+				)
+			}
+
+		}]).controller('formController', [ '$scope','$http' ,function($scope,$http) {
+			$scope.getToken=function(){
+				$.ajax({url:'/oauth',data:$scope.formData})
+				.always(function(data){
+				data = JSON.parse(data);
+						$('#bdy').html(JSON.stringify(data));
+						myToken = data.token;
+					}
+				)
+			}
+
+			$scope.getPatient=function(){
+				mydata = {token:myToken,module:'/getPatient'};
+				$.ajax({url:'/api',data:mydata})
+				.always(function(data){
+						$('#bdy').html(JSON.stringify(data));
+					}
+				)
+			}
+
+
+			$scope.getInfo=function(){
+				mydata = {token:myToken,module:'/getInfo'};
+				$.ajax({url:'/api',data:mydata})
+				.always(function(data){
+						$('#bdy').html(JSON.stringify(data));
+					}
+				)
+			}
+
+		}]);
+
+	function setFacetFilter(){
+		var facetFilterRec = {};
+		$('#preFacetFilterResult').html('');
+		$('#tabFacets').find($('SELECT')).each(function(){
+			if($(this).val() != ''){
+				facetFilterRec[$(this).attr('id').replace('sel','')] = $(this).val();
+			}
+		});
+		var isRecMatch = false;
+		for (ffI=0,ffJ=1;ffI<window.lastData.list.length;ffI++ ){
+				for(_id in facetFilterRec){
+					isRecMatch = true;
+					alert('facetFilterRec['+_id+'] : '+facetFilterRec[_id]+'\n'+window.lastData.list[ffI].data[_id]);
+					if(facetFilterRec[_id] != window.lastData.list[ffI].data[_id]){
+						isRecMatch = false;
+						break;
+					}
+				}
+				if(isRecMatch){
+					$('#preFacetFilterResult').append('<strong><u>Rec '+ffJ+' :</strong></u><br/>');
+					ffJ++;
+					$('#preFacetFilterResult').append(JSON.stringify(_win.lastData[ffI],null,'\n\t').replace(/\"/g,'"')+'<br/>');
+				}
+		}
+		facetFilterRec = '';
+	}
+
+	</script>
+</HEAD>
+ <BODY ng-app="formApp">
+	 <div class="row">
+		<div class="col-lg-4">
+		 	<div class="panel panel-primary">
+		 		<div class="panel-heading">
+		 			APP Token Generator
+		 		</div>
+			 	<div class="panel-body">
+				 	<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Client Id</label>
+							<div class="col-lg-4">
+								<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+				 	<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Email Id</label>
+							<div class="col-lg-4">
+								<input type="email" id="name" name="name" ng-model="client.name" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+				 	<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Password</label>
+							<div class="col-lg-4">
+								<input type="password" id="name" name="name" ng-model="client.name" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+				 	<div class="row">
+					 	<div class="form-group">
+							<input type="submit" id="name" name="name" class="btn btn-primary" required value="Submit"/>
+					 	</div>
+				 	</div>
+		 		</div>
+		 	</div>
+	 	</div>
+	 	<div class="col-lg-8">
+	 		<div class="col-lg-6">
+			 	<div class="panel panel-primary">
+			 		<div class="panel-heading">
+			 			Customer Form
+			 		</div>
+				 	<div class="panel-body">
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">URL</label>
+								<div class="col-lg-4">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+					 	</div>
+						<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">First Name</label>
+								<div class="col-lg-4">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+					 	</div>
+						<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">Last Name</label>
+								<div class="col-lg-4">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+					 	</div>
+						<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">Email</label>
+								<div class="col-lg-4">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+								<input type="submit" id="name" name="name" class="btn btn-primary float-right" required value="Submit"/>
+						 	</div>
+					 	</div>
+			 		</div>
+			 	</div>
+	 		</div>
+	 		<div class="col-lg-6">
+			 	<div class="panel panel-primary">
+			 		<div class="panel-heading">
+			 			Customer Photo
+			 		</div>
+				 	<div class="panel-body">
+		 			 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">URL</label>
+								<div class="col-lg-8">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">Customer Id</label>
+								<div class="col-lg-8">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">Upload Photo</label>
+								<div class="col-lg-8">
+									<input type="file" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+						</div>
+					</div>
+				</div>
+	 		</div>
+	 	</div>
+	 </div>
+	 <div class="row">
+		<div class="col-lg-8">
+			 	<div class="panel panel-primary">
+			 		<div class="panel-heading">
+			 			Customer List
+			 		</div>
+				 	<div class="panel-body">
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">URL</label>
+								<div class="col-lg-4">
+									<input type="formatedNames" id="name" name="name" ng-model="client.name" class="form-control" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+							<table class="table">
+								<thead>
+										<tr>
+											<th>Cust Id</th>
+											<th>First Name</th>
+											<th>Last Name</th>
+											<th>Email</th>
+										</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+					 		
+					 	</div>
+					 </div>
+				</div>
+		</div>	 	
+	 </div>
+	 	
+	<div id="bdy"></div>
+	Get Data
+	<div  ng-controller="formController">
+		<form action="http://localhost:3000/api">
+			<input type="text" ng-model="formData.clientId"  placeHolder="Client Id" /><br/>
+			<input type="text" ng-model="formData.emailId" placeHolder="Email Id" /><br/>
+			<input type="password" ng-model="formData.password"  placeHolder="Password" /><br/>
+
+			<input type="button" value="Generate Token" ng-click="getToken()">
+			<input type="button" value="Get Patient" ng-click="getPatient()">
+			<input type="button" value="Get Info" ng-click="getInfo()">
+		</form>
+	</div>
+	<div  ng-controller="formPostData">
+		<form action="http://localhost:3001/saveData">
+			<input type="text" ng-model="formData.token"  placeHolder="Token" /><br/>
+			<input type="text" ng-model="formData.collectionName" placeHolder="Collection Name" /><br/>
+			<textarea id="taGetData" type="password" ng-model="formData.data"  placeHolder="Data" style="width:100%;height:50%"></textarea><br/>
+
+			<input type="button" value="Get Data" ng-click="getData()">
+		</form>
+	</div>
+	<div id="bdy1"></div>
+ </BODY>
+</HTML>

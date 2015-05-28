@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Index </TITLE>
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/i18n/grid.locale-en.js"></script>
+  <link rel="stylesheet" href="css/ui.jqgrid.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="themes/sunny/jquery.ui.all.css" />
+ </HEAD>
+ <BODY onload="loadData()">
+  <table id="tblGrid"></table>
+  <div id="pager2"></div>
+  <div id="myJson"></div>
+ </BODY>
+	<script>
+		function loadData(){
+			$.ajax({datatype:'jsonp',url:'http://localhost:8899/get?emp=1111',data:{emp:15855555,collec:'emp'}}).always(function(data){
+				jQuery("#tblGrid")[0].addJSONData(jQuery.parseJSON(data));
+				$('#myJson').html(data);
+			});
+		/*	$.post('http://localhost:8899/get?emp=1111',{emp:15855555,collec:'emp'}).always(function(data){
+				jQuery("#tblGrid")[0].addJSONData(jQuery.parseJSON(data));
+			});*/
+		}
+	</script>
+</HTML>

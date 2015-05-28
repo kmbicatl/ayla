@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+
+ <!-- BEGIN HEAD -->
+<head>
+      <meta charset="UTF-8" />
+    <title>KHub Cloud</title>
+     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+     <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <!-- GLOBAL STYLES -->
+    <!-- GLOBAL STYLES -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/plugins/switch/static/stylesheets/bootstrap-switch.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/MoneAdmin.css" />
+    <link rel="stylesheet" href="assets/plugins/Font-Awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/plugins/magic/magic.css" />
+
+    <!--END GLOBAL STYLES -->
+
+    <!-- PAGE LEVEL STYLES -->
+     <link rel="stylesheet" href="assets/plugins/validationengine/css/validationEngine.jquery.css" />
+     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+	 <link rel="stylesheet" href="assets/plugins/chosen/chosen.min.css" />
+
+	<link href="assets/plugins/flot/examples/examples.css" rel="stylesheet" />
+	<style>
+		.ForMargin {
+			margin:5px;
+		}
+		.lot{
+				box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);	
+				background-color:#fff;	
+				width:69px;
+				height:63px;
+				padding:2px;
+				margin:10px;
+		}
+		.notes{
+			font-size:10px;
+			color:#c0c0c0;
+		}	
+		.txt-color-red{
+			color:red;
+		}
+		.txt-color-green{
+			color:green;
+		}
+		.alnCnt{
+			text-align:center;
+		}
+		.col-md-1{
+			padding:2px;
+			margin:2px;
+			width:auto;
+		}
+		.col-md-offset-1 {
+  			margin-left: 8.333333333333332%;
+		}
+	</style>
+</head>
+     <!-- END HEAD -->
+
+     <!-- BEGIN BODY -->
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">KM BIC IOT Parking System</a>
+    </div>
+</nav>
+	<div class="row">
+		
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A001</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A002</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A003</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A004</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A005</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A006</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A007</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>A008</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B001</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B002</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B003</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B004</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B005</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B006</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B007</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>B008</span>
+			</div>
+		</div>
+	</div>			
+	<div class="row">
+		
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C001</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C002</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C003</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C004</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C005</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C006</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C007</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>C008</span>
+			</div>
+		</div>
+	</div>   
+	<div class="row">
+		
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D001</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D002</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D003</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D004</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D005</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D006</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D007</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>D008</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E001</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E002</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E003</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E004</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E005</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E006</span>
+			</div>
+		</div>
+		<div class="col-md-1 col-md-offset-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E007</span>
+			</div>
+		</div>
+		<div class="col-md-1">
+			<div class="lot">
+					<span class="fa fa-car txt-color-green alnCnt fa-2x"><br/>E008</span>
+			</div>
+		</div>
+	</div>	
+	    <!--END FOOTER -->
+
+
+     <!-- GLOBAL SCRIPTS -->
+    <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+    <script src="assets/plugins/angular.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <!-- END GLOBAL SCRIPTS -->
+
+    <!-- PAGE LEVEL SCRIPTS -->
+
+    <script src="assets/plugins/validationengine/js/jquery.validationEngine.js"></script>
+    <script src="assets/plugins/validationengine/js/languages/jquery.validationEngine-en.js"></script>
+    <script src="assets/plugins/jquery-validation-1.11.1/dist/jquery.validate.min.js"></script>
+    <script src="assets/plugins/validationengine/js/libs/customValidations.js"></script>
+	<script src="assets/js/reqresController.js"></script>
+
+    <script src="assets/js/validationInit.js"></script>
+    <script src="assets/js/controller/clients.js"></script>
+	<script src="assets/plugins/switch/static/js/bootstrap-switch.min.js"></script>
+	<script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+	<script src="assets/plugins/chosen/chosen.jquery.min.js"></script>
+	<script src="assets/plugins/jquery.dualListbox-1.3/jquery.dualListBox-1.3.js"></script>
+
+    <script  src="assets/plugins/flot/jquery.flot.js"></script>
+     <script src="assets/plugins/flot/jquery.flot.resize.js"></script>
+	<script  src="assets/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="assets/js/pie_chart.js"></script>
+	<script type="text/javascript" src="assets/js/layoutController.js"></script>
+
+
+
+    <script type="text/javascript" src="assets/jsonform-master/deps/underscore.js"></script>
+    <script type="text/javascript" src="assets/jsonform-master/deps/opt/jsv.js"></script>
+    <script type="text/javascript" src="assets/jsonform-master/lib/jsonform.js"></script>
+	   
+
+	<script src="clients/clients.js"></script>
+	<script src="users/users.js"></script>
+	<script src="masterData/masterData.js"></script>
+	<script src="access/access.js"></script>
+	<script src="apis/apis.js"></script>
+	<script src="productbuilder/productbuilder.js"></script>
+
+
+    <script>
+       
+		$(function(){
+			oAjax = {url:'/ayle',dataType: "json",data:{_mode:'getDeviceProperties',key:'10882'}}
+			var access_token = 'fa524aaf82794eac83c6aefbf5b54de6';
+			oAjax.data.token = access_token;
+			$.ajax(oAjax).always(function(data){
+				console.log('data.data :: '+JSON.stringify(data.data[0].prop,null,'\n'));
+			});
+		});
+	
+	</script>
+     <!--END PAGE LEVEL SCRIPTS -->     
+</body>
+     <!-- END BODY -->
+</html>

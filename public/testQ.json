@@ -1,0 +1,992 @@
+{
+  "version": "1.0",
+  "basePath": "http://jsondoc.eu01.aws.af.cm/api",
+  "objects": {
+    "Core Objects": [
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [],
+        "jsondocId": "1d7a284f-5ee6-42ab-8dfb-4f6ed66ba033",
+        "name": "Person",
+        "description": "A person object is to represent a Customer or Employee or User...",
+        "fields": [
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "cb273451-5be2-42a2-9e28-00c59d32d415",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "uqid",
+            "description": "Unique Id",
+            "format": "",
+            "allowedvalues": [],
+            "required": "true",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "131fb377-bf63-4b01-a6a3-27d646d41935",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "name",
+            "description": "The author's name",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "d33bbe65-69f4-47a0-a30d-f03356fd0ccb",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "surname",
+            "description": "The author's surname",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          }
+        ],
+        "supportedversions": null,
+        "allowedvalues": null,
+        "group": "",
+        "jsondocTemplate": {
+          "id": 0,
+          "name": "",
+          "surname": ""
+        }
+      },
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [],
+        "jsondocId": "7377ea5a-65fb-4ac7-9820-65b942afadcd",
+        "name": "Loan",
+        "description": "A book object belonging to an external jar",
+        "fields": [
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "0270477f-c958-44f5-9766-cf631bf1aa2d",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "id",
+            "description": "The book's id",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "a823843d-335b-4446-bca5-8bd2febcbeb6",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "name",
+            "description": "The book's title",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "f7b0e086-b8c8-4747-96f0-74ea058a5654",
+            "jsondocType": {
+              "type": [
+                "author"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "author"
+            },
+            "name": "author",
+            "description": "The book's author",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          }
+        ],
+        "supportedversions": null,
+        "allowedvalues": null,
+        "group": "",
+        "jsondocTemplate": {
+          "id": 0,
+          "author": {
+            "id": 0,
+            "name": "",
+            "surname": ""
+          },
+          "name": ""
+        }
+      },
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [
+          "Add description to field: id",
+          "Add description to field: username"
+        ],
+        "jsondocId": "2b2e5938-b921-470e-ae1d-062a23554aa1",
+        "name": "Unit",
+        "description": "",
+        "fields": [
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "81ff434a-e737-42a8-a16c-d8c32ba7a725",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "id",
+            "description": "",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "e6678a59-4832-4c71-8a27-4201409fb899",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "username",
+            "description": "",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "f8d8ecb0-0264-43de-85c0-4166232700ff",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "age",
+            "description": "The age of this object",
+            "format": "",
+            "allowedvalues": [],
+            "required": "true",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "dfe06c72-8e27-40ba-933f-d7ad5a0c6483",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "gender",
+            "description": "The gender of this object",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          }
+        ],
+        "supportedversions": null,
+        "allowedvalues": null,
+        "group": "",
+        "jsondocTemplate": {
+          "id": 0,
+          "username": "",
+          "age": 0,
+          "gender": ""
+        }
+      },
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [
+          "Add description to field: id"
+        ],
+        "jsondocId": "430f93ef-f97d-42d0-8e8a-f34f4a620d12",
+        "name": "Rule",
+        "description": "",
+        "fields": [
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "1f27f4de-73b9-495d-9a9e-44b8cd95591f",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "id",
+            "description": "",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          }
+        ],
+        "supportedversions": null,
+        "allowedvalues": null,
+        "group": "",
+        "jsondocTemplate": {
+          "id": 0
+        }
+      }
+	],
+    "Sub Objects": [
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [],
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "city",
+        "description": "",
+        "fields": [
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "bdebcc23-c48b-4098-94af-3deed257c450",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "name",
+            "description": "The name of the city",
+            "format": "",
+            "allowedvalues": [
+              "Melbourne",
+              "Sydney",
+              "Perth"
+            ],
+            "required": "false",
+            "supportedversions": {
+              "since": "1.36",
+              "until": "1.4"
+            }
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "d80d6406-87b4-4170-9e99-a0eccd1bfe2d",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "population",
+            "description": "The population of the location",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "c35490a5-d82e-48bb-986c-d622f5c85ae4",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "square_km",
+            "description": "The square km of the location",
+            "format": "##0.00",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          }
+        ],
+        "supportedversions": {
+          "since": "1.3",
+          "until": "1.4"
+        },
+        "allowedvalues": null,
+        "group": "Geography",
+        "jsondocTemplate": {
+          "squarekm": 0,
+          "name": "",
+          "population": 0
+        }
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991G",
+        "name": "access",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "oneLineText": "integer"
+            },
+            "name": "accessid",
+            "description": "Access Id",
+            "required": "true"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "{}"
+              ],
+              "oneLineText": "params{}"
+            },
+            "name": "params",
+            "description": "Parameter",
+            "required": "true"
+          }                    
+          ]
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991H",
+        "name": "address",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "line1",
+            "description": "Address Line 1",
+            "required": "false"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "line2",
+            "description": "Address Line 2",
+            "required": "false"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "aptno",
+            "description": "Appartment Nbr",
+            "required": "false"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "city",
+            "description": "City",
+            "required": "false"
+          },                    
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "state",
+            "description": "State",
+            "required": "false"
+          },                    
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "country",
+            "description": "Country",
+            "required": "false"
+          },                    
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "zipcode",
+            "description": "Zip Code/Post Code",
+            "required": "false"
+          },                    
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "ll",
+            "description": "Longitude Latitude",
+            "required": "false"
+          }                    
+          ]
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991I",
+        "name": "bankaccount",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "abanbr",
+            "description": "ABA Number",
+            "required": "true"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "routingnbr",
+            "description": "Routing Number",
+            "required": "true"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "status",
+            "description": "Status of the bank account",
+            "required": "true"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "dd",
+            "description": "Direct Deposit (Y/N)",
+            "required": "false"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "db",
+            "description": "Direct Debit (Y/N) for ACH",
+            "required": "false"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "dbexp",
+            "description": "Direct Debit Expiry",
+            "required": "false"
+          }
+		 ]
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991J",
+        "name": "contact",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "dnc",
+            "description": "Do not call (Y/N)",
+            "required": "false"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "type",
+            "description": "Email, Phone, Phone-Ext, Mobile, Work Phone, Home Phone, Fax, Manager Phone...",
+            "required": "false"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "value",
+            "description": "Value relevant to type like actual email or phone nbr",
+            "required": "false"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "preference",
+            "description": "Prefered timing for contact",
+            "required": "false"
+          }
+		  ]        
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991K",
+        "name": "colleteral",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "type",
+            "description": "Cheque, Vehicle, Gold...",
+            "required": "false"
+          }
+		  ]        
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991L",
+        "name": "credential",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "id",
+            "description": "Login Id",
+            "required": "true"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "password",
+            "description": "Passsword",
+            "required": "true"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "type",
+            "description": "Form, Token, SSO, Person, System",
+            "required": "false"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "params",
+            "description": "params{}; To pass addtional parameters like store / branch / company / macid",
+            "required": "false"
+          }
+          ]
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991M",
+        "name": "personemployement",
+        "group": "Geography",
+	      "fields": [
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "employeeid",
+            "description": "Employee Id",
+            "required": "false"
+          },
+		  {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "designation",
+            "description": "Designation",
+            "required": "false"
+          },		  
+          {
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "oneLineText": "integer"
+            },
+            "name": "startdate",
+            "description": "Start Date",
+            "required": "false"
+          },		  
+          {
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "oneLineText": "integer"
+            },
+            "name": "enddate",
+            "description": "End Date",
+            "required": "false"
+          },		 
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "person"
+            },
+            "name": "manager",
+            "description": "Manager of this employment",
+            "required": "false"
+          },		  
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "string"
+            },
+            "name": "status",
+            "description": "Status of the employment (Current, Parttime, Fulltime, Resigned, Fired, Left, Temp, Contract...)",
+            "required": "false"
+          },
+          {
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "oneLineText": "employer"
+            },
+            "name": "employer",
+            "description": "Employer from unit object",
+            "required": "false"
+          }
+   		  ]        
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "personinfo",
+        "group": "Geography"
+      },
+      {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "identity",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "income",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "personalMiscellaneous",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "reference",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "role",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "note",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "validator",
+        "group": "Geography"
+      },
+	  {
+        "jsondocId": "856d0ad3-e691-482e-af13-aae7004e991f",
+        "name": "vehicle",
+        "group": "Geography"
+      },
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [],
+        "jsondocId": "6fc154c8-27ac-4f55-ba72-b11a2ae25f87",
+        "name": "continent",
+        "description": "An enum of continents",
+        "fields": [],
+        "supportedversions": null,
+        "allowedvalues": [
+          "AFRICA",
+          "AMERICA",
+          "ANTARCTICA",
+          "ASIA",
+          "AUSTRALIA",
+          "EUROPE"
+        ],
+        "group": "Geography",
+        "jsondocTemplate": {}
+      },
+      {
+        "jsondocerrors": [],
+        "jsondocwarnings": [],
+        "jsondochints": [],
+        "jsondocId": "a4134bbb-ad3c-4105-9879-5c90810a4686",
+        "name": "country",
+        "description": "",
+        "fields": [
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "e9bc205c-603f-4a25-b6ac-4daed75dff99",
+            "jsondocType": {
+              "type": [
+                "string"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "string"
+            },
+            "name": "name",
+            "description": "The name of the country",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "6a07b5ed-1b66-4144-aca1-2b8b4972e987",
+            "jsondocType": {
+              "type": [
+                "list",
+                "city"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "list of city"
+            },
+            "name": "cities",
+            "description": "The cities of the country",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "a53662e4-abf0-4200-9171-e5c60242a92f",
+            "jsondocType": {
+              "type": [
+                "continent"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "continent"
+            },
+            "name": "continent",
+            "description": "The continent of the country",
+            "format": "",
+            "allowedvalues": [
+              "AFRICA",
+              "AMERICA",
+              "ANTARCTICA",
+              "ASIA",
+              "AUSTRALIA",
+              "EUROPE"
+            ],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "fcfeda97-a808-4089-8c1d-2a7722cf4b68",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "population",
+            "description": "The population of the location",
+            "format": "",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          },
+          {
+            "jsondocerrors": [],
+            "jsondocwarnings": [],
+            "jsondochints": [],
+            "jsondocId": "56978781-9c5a-4b84-815f-7fa3b619f6eb",
+            "jsondocType": {
+              "type": [
+                "integer"
+              ],
+              "mapKey": null,
+              "mapValue": null,
+              "oneLineText": "integer"
+            },
+            "name": "square_km",
+            "description": "The square km of the location",
+            "format": "##0.00",
+            "allowedvalues": [],
+            "required": "false",
+            "supportedversions": null
+          }
+        ],
+        "supportedversions": null,
+        "allowedvalues": null,
+        "group": "Geography",
+        "jsondocTemplate": {
+          "squarekm": 0,
+          "cities": [],
+          "name": "",
+          "continent": "",
+          "population": 0
+        }
+      }
+    ]
+  }
+}

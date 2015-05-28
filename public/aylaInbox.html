@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> KM IoT- Admin Console</TITLE>
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/plugins/switch/static/stylesheets/bootstrap-switch.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/MoneAdmin.css" />
+    <link rel="stylesheet" href="assets/plugins/Font-Awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/plugins/magic/magic.css" />
+
+    <!--END GLOBAL STYLES -->
+
+    <!-- PAGE LEVEL STYLES -->
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+     <link rel="stylesheet" href="assets/plugins/validationengine/css/validationEngine.jquery.css" />
+     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+	 <link rel="stylesheet" href="assets/plugins/chosen/chosen.min.css" />
+
+	<link href="assets/plugins/flot/examples/examples.css" rel="stylesheet" />
+	<style>
+	#deviceInfo{
+		max-height:200px;
+		overflow:auto;
+	}
+	#spanDeviceInfo{
+		font-weight:bold;
+	}
+	#menuLeft{
+
+	}
+	#menuDevices{
+		overflow:auto;
+	}
+	.headerMainText{
+		font-size:25px;
+		margin-top:30px;
+	}
+	.headerText{
+		font-weight:1;
+	}
+	.btnTemplate{
+		border:2px solid #c0c0c0;
+		min-height:200px;
+		margin:0px 5px 15px 5px;
+		padding-top:5px;
+		text-align: center;
+		background-color: #fff;
+		cursor:pointer;
+		 box-shadow: 10px 10px 5px #888888;
+		 position:relative;
+	}
+	.btnTemplate:hover{
+		background-color:rgba(136, 244, 211, 1);
+	}
+		.navbar{
+			margin-bottom:0px;
+		}
+		.ForMargin {
+			margin:5px;
+		}
+		.navbar-header{
+			padding-left:3px;
+			margin-left:3px;	
+		}
+		.navbar-default{
+			background-color:#2EE3F2;
+			opacity:0.8px;
+		}
+		.navbar-default .navbar-nav > li > a {
+			color:#fff;
+		}
+		.navbar-brand{
+			padding:0px;
+		}
+	</style>
+	<script src="assets/plugins/jquery-2.0.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script>
+	window.isAjax = false;
+	window.issetInerval = true;
+	window.repeatSync=false;
+		function setBlueLed(){
+			myData = {"datapoint":{"value":1}};
+			$.ajax({url:'https://ads-dev.aylanetworks.com/apiv1/devices.json',method:'GET',
+				beforeSend : function(xhr) {
+			      // generate base 64 string from username + password
+			      //var bytes = Crypto.charenc.Binary.stringToBytes(username + ":" + password);
+			      //var base64 = Crypto.util.bytesToBase64(bytes);
+			      // set header
+			      //xhr.setRequestHeader("Authorization", "Basic " + base64);
+			      token = 'fa524aaf82794eac83c6aefbf5b54de6';
+			      xhr.setRequestHeader("Authorization", "auth_token " + token);
+			   },
+			   xhrFields: {
+			    // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
+			    // This can be used to set the 'withCredentials' property.
+			    // Set the value to 'true' if you'd like to pass cookies to the server.
+			    // If this is enabled, your server must respond with the header
+			    // 'Access-Control-Allow-Credentials: true'.
+			    withCredentials: false
+			  },
+			   data:myData
+			});
+		}
+		var access_token = 'fa524aaf82794eac83c6aefbf5b54de6';
+		function managedevices(oParam){
+			oAjax = {url:'/ayle',dataType: "json",data:oParam.data};
+			
+			switch(oParam.data._mode){
+				case 'login':
+					oAjax.data.emailId = $('#emailId').val();
+					oAjax.data.password = $('#password').val();
+				break;
+				case 'loadDevices':
+					//oAjax.data = {_mode:'loadDevices',token:access_token}	
+				break;
+				case 'setSwitchProperty':
+					window.deviceKey = oParam.data.key;
+				break;
+			}
+			oAjax.data.token = access_token;
+			$.ajax(oAjax).always(function(data){
+				oParam.data = data.data;
+				oParam._mode = data._mode;
+				manageResponse(oParam);
+			});	
+		}
+		
+		function search(othis){
+			for(sI=0;sI<window.devices.length;sI++){
+				if($(othis).val().length > 0){
+					if(window.devices[sI].device.product_name.toLowerCase().indexOf($(othis).val().toLowerCase()) == 0){
+						$('#device_'+window.devices[sI].device.key).show('slow');
+					} else {
+						$('#device_'+window.devices[sI].device.key).hide('slow');
+					}
+				} else {
+					$('#device_'+window.devices[sI].device.key).show('slow');
+				}
+			}
+			
+		}		
+		function manageResponse(oParam){
+			switch(oParam._mode){
+				case 'login':
+					if(oParam.data.error){
+						$('#loginErr').html('<strong>'+oParam.data.error+'<strong>');
+					} else {
+							access_token = oParam.data.access_token;
+							$('#loginErr').html('');
+							$( "#myDialog" ).dialog('close');
+							managedevices({data:{_mode:'loadDevices'}});
+					}
+				break;
+				case 'loadDevices':
+				window.devices = oParam.data;
+					myImages = {'10171':'scanner.jpg','10372':'ProJet860.jpg','10882':'BizHub_C25_close.png'};
+					proJetStr = '';
+					menuStr = '';
+					menuStr += '<div class="row" style="margin:5px;padding:20px"><input type="text" placeHolder="Search..." class="form-control" onkeyup="search(this)"></div>';
+					for(mrI=0;mrI<oParam.data.length;mrI++){
+						if(oParam.data[mrI].device.key != '10372') {
+							menuStr += '<div  id="device_'+oParam.data[mrI].device.key+'" class="btnTemplate" class="col-md-6" onclick="window.repeatSync=false;managedevices({data:{_mode:\'getDeviceProperties\',key:'+oParam.data[mrI].device.key+'}})">';
+ 							menuStr += '<img class="imgTemplate" src="assets/img/'+myImages[oParam.data[mrI].device.key]+'"/>';
+ 							menuStr += '<strong>'+oParam.data[mrI].device.product_name+'</strong><br>'+oParam.data[mrI].device.model+'<br>'+oParam.data[mrI].device.dsn+'<br>'+oParam.data[mrI].device.lan_ip;
+	 						menuStr += '</div>';
+	 					} else {
+	 						proJetStr += '<div  id="device_'+oParam.data[mrI].device.key+'" class="btnTemplate" class="col-md-6" onclick="window.repeatSync=false;managedevices({data:{_mode:\'getDeviceProperties\',key:'+oParam.data[mrI].device.key+'}})">';
+ 							proJetStr += '<img class="imgTemplate" src="assets/img/'+myImages[oParam.data[mrI].device.key]+'"/>';
+ 							proJetStr += '<strong>'+oParam.data[mrI].device.product_name+'</strong><br>'+oParam.data[mrI].device.model+'<br>'+oParam.data[mrI].device.dsn+'<br>'+oParam.data[mrI].device.lan_ip;
+	 						proJetStr += '</div>';
+	 					}
+ 						
+					}
+					$('#menuDevices').html(menuStr+proJetStr);
+					$('.imgTemplate').css('width','80%');
+			 		$('.imgTemplate').css('height','auto');
+			 		$('.imgTemplate').css('max-height','200px');
+			 		$('.btnTemplate').click(function(){
+			 			$('.btnTemplate').css('background-color','');
+			 			$(this).css('background-color','#88F48E')
+			 		});
+				break;
+				case 'getDeviceProperties':
+					
+					window.deviceParams = oParam.data;
+				
+					var bdyStr = '<div class="row">';
+					bdyStr += '	<table class="table table-bordered table-striped table-hover">';
+					bdyStr += '		<thead>';
+					bdyStr += '			<tr>';
+					bdyStr += '				<th>Property</th>';
+					bdyStr += '				<th>Value</th>';
+					bdyStr += '			</tr>';
+					bdyStr += '		</thead>';
+					bdyStr += '		<tbody>';
+					for(ldId in window.devices[0].device){
+						bdyStr += '			<tr>';
+						bdyStr += '				<td>'+ldId+'</td>';
+						bdyStr += '				<td>'+window.devices[0].device[ldId]+'</td>';
+						bdyStr += '			</tr>';
+					}
+					bdyStr += '		</tbody>';
+					bdyStr += '	</table>';
+					bdyStr += '</div>';
+					$('#deviceInfo').html(bdyStr);
+					menuStr = '';
+					menuStr += '<div class="row"><h3 class="bg-color-green" style="margin-left:25px">Switches</h3></div>';
+					for(mrI=0;mrI<oParam.data.length;mrI++){
+						if(!oParam.data[mrI].property.read_only){
+							menuStr += '<div class="row"><button id="btnProp'+oParam.data[mrI].property.key+'" class="btn btn-sm btn-primary" style="width:100%;margin:1px" onclick="setSwitchData({idx:'+mrI+',mode:\'Switch\'});window.repeatSync=true;syncActiveWindow({repeatSync:true,data:{_mode:\'getProperty\',key:'+oParam.data[mrI].property.key+'}});">'+oParam.data[mrI].property.display_name+'</button></div>';
+						}
+					}
+					menuStr += '<div class="row"><h3 class="txt-color-green" style="margin-left:25px">Monitors</h3></div>';
+					for(mrI=0;mrI<oParam.data.length;mrI++){
+						if(oParam.data[mrI].property.read_only){
+							menuStr += '<div class="row"><button id="btnProp'+oParam.data[mrI].property.key+'" class="btn btn-sm btn-primary" style="width:100%;margin:1px" onclick="setSwitchData({idx:'+mrI+',mode:\'Monitor\'});window.repeatSync=true;syncActiveWindow({repeatSync:true,data:{_mode:\'getProperty\',key:'+oParam.data[mrI].property.key+'}});">'+oParam.data[mrI].property.display_name+'</button></div>';
+						}
+					}
+					$('#menuLeft').html(menuStr);
+					$('#spanDeviceInfo').html(oParam.data[0].property.product_name);
+					/*$('.btn-sm').click(function(){
+						window.repeatSync=true;
+					});*/
+					$('#contRight').html('');
+					window.issetInerval = false;
+					try{
+						clearInterval(window.setItlId);
+					}catch(e){}
+					//console.log(JSON.stringify(oParam,null,'\n'));
+				break;
+				case 'getProperty':
+					//console.log(new Date()+' : '+JSON.stringify(oParam.data));
+					//window.deviceParams[window.activeCtnl.idx] = oParam.data;
+					//window.issetInerval = false;
+					if(oParam.data.property.key == window.deviceParams[window.activeCtnl.idx].property.key){
+						window.deviceParams[window.activeCtnl.idx] = oParam.data;
+						setSwitchData(window.activeCtnl);
+						if(oParam.repeatSync && window.repeatSync){
+							console.log('window.activeCtnl.idx : '+window.activeCtnl.idx);
+							syncActiveWindow({repeatSync:true,data:{_mode:'getProperty',key:window.deviceParams[window.activeCtnl.idx].property.key}});	
+						}
+					}
+				break;
+				case 'setSwitchProperty':
+					if(oParam.data.datapoint.value == '0'){
+						$('#btnAction').html('<div class="col-md-6" id="btnAction"><input type="button" class="quick-btn btn-success" value="ON" onclick="managedevices({data:{_mode:\'setSwitchProperty\',value:1,key:'+window.deviceKey+'}})"></div>');
+						$('#tdValue').text('0');
+					} else {
+						$('#btnAction').html('<div class="col-md-6" id="btnAction"><input type="button" class="quick-btn btn-warning" value="OFF" onclick="managedevices({data:{_mode:\'setSwitchProperty\',value:0,key:'+window.deviceKey+'}})"></div>');
+						$('#tdValue').text('1');
+					}
+					$('#tdUpdated').text(oParam.data.datapoint.updated_at);					
+				break;
+			}	
+			window.isAjax = false;
+		}
+		
+		function setSwitchData(oCtnl){
+			"btnProp'+oParam.data[mrI].property.key+'"
+			$('.btn-sm').removeClass('btn-warning').addClass('btn-primary');
+			$('#btnProp'+window.deviceParams[oCtnl.idx].property.key).removeClass('btn-primary').addClass('btn-warning');
+				//	try{
+					//	clearInterval(window.setItlId);
+					//}catch(e){}
+					
+			//window.activeDeviceKey = window.deviceParams[oCtnl.idx].property.key;
+			window.activeCtnl = oCtnl;
+			var bdyStr = '<div class="row">';
+			if(oCtnl.mode=='Switch'){
+				bdyStr += '<div class="col-md-6">';
+			} else {
+				bdyStr += '<div class="col-md-12">';
+			}
+			bdyStr += '	<table class="table table-bordered table-striped table-hover">';
+			bdyStr += '		<thead>';
+			bdyStr += '			<tr>';
+			bdyStr += '				<th colspan="2">'+oCtnl.mode+' Info</th>';
+			bdyStr += '			</tr>';
+			bdyStr += '		</thead>';
+			bdyStr += '		<tbody>';
+			bdyStr += '			<tr>';
+			bdyStr += '				<td>Key</td>';
+			bdyStr += '				<td>'+window.deviceParams[oCtnl.idx].property.key+'</td>';
+			bdyStr += '			</tr>';
+			bdyStr += '			<tr>';
+			bdyStr += '				<td>Name</td>';
+			bdyStr += '				<td>'+window.deviceParams[oCtnl.idx].property.name+'</td>';
+			bdyStr += '			</tr>';
+			bdyStr += '			<tr>';
+			bdyStr += '				<td>Value</td>';
+			bdyStr += '				<td id="tdValue">'+window.deviceParams[oCtnl.idx].property.value+'</td>';
+			bdyStr += '			</tr>';
+			bdyStr += '			<tr>';
+			bdyStr += '				<td>Updated at</td>';
+			bdyStr += '				<td id="tdUpdated">'+window.deviceParams[oCtnl.idx].property.data_updated_at+'</td>';
+			bdyStr += '			</tr>';
+			bdyStr += '		</tbody>';
+			bdyStr += '	</table>';
+			bdyStr += '</div>';
+			if(oCtnl.mode=='Switch'){
+				if(window.deviceParams[oCtnl.idx].property.value == '0'){
+					bdyStr += '<div class="col-md-6" id="btnAction"><input type="button" class="quick-btn btn-success" value="ON" onclick="managedevices({data:{_mode:\'setSwitchProperty\',value:1,key:'+window.deviceParams[oCtnl.idx].property.key+'}})"></div>';
+				} else if(window.deviceParams[oCtnl.idx].property.value == '1'){
+					bdyStr += '<div class="col-md-6" id="btnAction"><input type="button" class="quick-btn btn-warning" value="OFF" onclick="managedevices({data:{_mode:\'setSwitchProperty\',value:0,key:'+window.deviceParams[oCtnl.idx].property.key+'}})"></div>';
+				} else {
+					bdyStr += '<div class="col-md-6"><input type="button" class="quick-btn btn-default" value="NA" disabled></div>';
+				}
+			}
+			bdyStr += '</div>';
+			if(window.deviceParams[oCtnl.idx].property.name=='Blue_button' && window.deviceParams[oCtnl.idx].property.device_key == '10882'){
+				bdyStr += '<div class="row">';
+				if(window.deviceParams[oCtnl.idx].property.value == '0'){
+					bdyStr += '<div class="col-md-12"><img src="assets/img/BizHub_C25_close.png" style="width:200px;height:200px" /></div>';
+				} else {
+					bdyStr += '<div class="col-md-12"><img src="assets/img/BizHub_C25_open.png"  style="width:200px;height:200px"/></div>';
+				}
+				bdyStr += '</div>';
+			}
+			$('#contRight').html('<br/><br/><br/>'+bdyStr);
+			
+			/*if(window.issetInerval){
+				window.issetInerval = false;
+				try{
+						clearInterval(window.setItlId);
+					}catch(e){}
+				window.setItlId = setInterval(function(){
+					if(!window.isAjax){
+						window.isAjax = true;
+						managedevices({repeatSync:true,data:{_mode:'getProperty',key:window.activeDeviceKey}});
+					}
+				},2000);
+			}*/
+		}
+		function syncActiveWindow(oAjax){
+				managedevices(oAjax);
+		}
+		function killSyncActiveWindow(){}
+	</script>
+</HEAD>
+ <BODY>
+ 	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#"><img src="assets/img/konica-minolta-bic-logo.png" style="width:400px;" ><span class="headerMainText" style="color:#000">IoT Control</span> <span class="headerText">Admin Console</span></a>
+		    </div>
+		
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a href="#" onclick="location.reload()">Logout</a></li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid --> 	
+ 		
+ 	</nav>
+ 	<div class="row">
+ 		
+ 	</div>
+	<div class="row">
+ 		<section id="menuDevices" class="col-md-3" style="height:100%;padding:5px 1px 0px 2px;">
+ 		</section>
+ 		<section class="col-md-9">
+				<span id="spanDeviceInfo"></span>&nbsp;<input type="button" id="btnDeviceInfo" class="btn btn-primary" value="Show device details" onclick="javascript:$('#deviceInfo').toggle('slow',function(){if($('#btnDeviceInfo').val().indexOf('Show')>-1){$('#btnDeviceInfo').val('Hide device details');}else{$('#btnDeviceInfo').val('Show device details');}})" />
+ 			<div id="deviceInfo" class="row" style="background-color: #F7F6AC;margin-left: 0px;padding: 10px">
+ 			</div>
+			<div class="row" >
+				<section id="menuLeft" class="col-md-3" style="background-color:#fff">
+				</section>
+				<section id="contRight" class="col-md-9" style="background-color:#fff;height:100%">
+				</section>
+			</div> 			
+ 		</section>
+		
+	</div>
+<div id="myDialog" title="Login" style="background-color: #fff">
+	<div id="loginErr" class="row" style="color:orange">
+		
+	</div>
+  <div class="row">
+  		<input id="emailId" type="text" placeHolder="Email Id" class="form-control">
+  </div>
+  <div class="row">
+  		<input id="password" type="password" placeHolder="Password" class="form-control">
+  </div>
+  <div class="row">
+  		<input type="button" value="Login" class="btn btn-primary" onclick="managedevices({data:{_mode:'login'}})">
+  </div>
+</div>
+
+</BODY>
+</HTML>
+ <script>
+ 	$(function(){
+ 		$('#deviceInfo').hide();
+ 		$('.row').css('margin-left','0px');
+ 		$( "#myDialog" ).dialog({modal:true,closeOnEscape:false,draggable:false});
+ 		$('.ui-dialog-titlebar-close').hide();
+// 		managedevices({data:{_mode:'loadDevices'}});
+ 		 
+ 	});
+ 	
+ </script>

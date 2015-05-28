@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Customer Form </TITLE>
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/plugins/switch/static/stylesheets/bootstrap-switch.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/MoneAdmin.css" />
+    <link rel="stylesheet" href="assets/plugins/Font-Awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/plugins/magic/magic.css" />
+
+    <!--END GLOBAL STYLES -->
+
+    <!-- PAGE LEVEL STYLES -->
+     <link rel="stylesheet" href="assets/plugins/validationengine/css/validationEngine.jquery.css" />
+     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+	 <link rel="stylesheet" href="assets/plugins/chosen/chosen.min.css" />
+
+	<link href="assets/plugins/flot/examples/examples.css" rel="stylesheet" />
+	<style>
+		.ForMargin {
+			margin:5px;
+		}
+	</style>
+	    <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script>
+		function getToken(){
+		$.ajax({url:'/external?mode=patientSearch',data:$('#formToken').serialize()})
+				.always(function(data){
+				data = JSON.parse(data);
+						$('#bdy').html('<h2>'+JSON.stringify(data,null,'\n\t')+'</h2>');
+						myToken = data.token;
+					}
+				)	
+		}
+		function submitForm(){
+			console.log($('#formCustForm').serialize());
+			console.log('>>>>>>'+new FormData($('#formCustForm')));					
+			$.ajax({url:'/save',data:$('#formCustForm').serialize(),cache:false,contentType:false,processData:false,method:'post'}).always(function(data){
+				console.log('data : '+JSON.stringify(data));
+			});
+		}
+	</script>
+</HEAD>
+ <BODY ng-app="formApp">
+ 	<div class="tab-content">
+	 <div class="row">
+		 	<div class="panel panel-primary">
+		 		<div class="panel-heading">
+		 			APP Token Generator
+		 		</div>
+			 	<div class="panel-body">
+			 		<form id="formToken">
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">KH Token</label>
+								<div class="col-lg-4">
+									<input type="text" id="token" name="token"  class="form-control" value="i+oPOyAlKocB/F0AWY2I9qYdm3SEfd9p/NEgcHuketw=" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">KH API Path</label>
+								<div class="col-lg-4">
+									<input type="text" id="_module" name="_module"  class="form-control" value="/zoeticx" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">eHRCategory</label>
+								<div class="col-lg-4">
+									<input type="formatedNames" id="eHRCategory" name="eHRCategory"  class="form-control" value="1" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">User Name</label>
+								<div class="col-lg-4">
+									<input type="email" id="username" name="username" class="form-control" value="KMuser" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">Password</label>
+								<div class="col-lg-4">
+									<input type="password" id="password" name="password" class="form-control" value="KMuser" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">isIpad</label>
+								<div class="col-lg-4">
+									<input type="text" id="isIpad" name="isIpad" class="form-control" value="1" required/>
+								</div>
+						 	</div>
+					 	</div>					 	
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">Device Token</label>
+								<div class="col-lg-4">
+									<input type="text" id="deviceToken" name="deviceToken" class="form-control" value="3153148335afe7b8c06cffee01d025827c0e8274654152a549193ca0cd2a1993" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+						 	<div class="form-group">
+						 		<label class="control-label col-lg-4">deviceId</label>
+								<div class="col-lg-4">
+									<input type="text" id="deviceId" name="deviceId" class="form-control" value="0506679C-" required/>
+								</div>
+						 	</div>
+					 	</div>
+					 	<div class="row">
+							<input type="button" onclick="getToken()" id="btnToken" name="btnToken" class="btn btn-primary" required value="Submit"/>
+							<div id="bdy"></div>
+					 	</div>
+				 	</form>
+		 		</div>
+		 	</div>
+	 </div>
+	 <div class="row">
+		 	<div class="panel panel-primary">
+		 		<div class="panel-heading">
+		 			Customer Form
+		 		</div>
+			 	<div class="panel-body">
+			 		<form id="formCustForm" name="formCustForm" enctype="multipart/form-data" method="post" action="/save">
+				 	<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Token</label>
+							<div class="col-lg-4">
+								<input type="formatedNames" id="token" name="token" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+				 	<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">API Path</label>
+							<div class="col-lg-4">
+								<input type="formatedNames" id="_module" name="_module" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+				 	<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">First Name</label>
+							<div class="col-lg-4">
+								<input type="formatedNames" id="firstName" name="firstName" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+					<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Last Name</label>
+							<div class="col-lg-4">
+								<input type="formatedNames" id="lastName" name="lastName" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+					<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Email</label>
+							<div class="col-lg-4">
+								<input type="formatedNames" id="emailId" name="emailId" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>
+					<div class="row">
+					 	<div class="form-group">
+					 		<label class="control-label col-lg-4">Photo</label>
+							<div class="col-lg-4">
+								<input type="file" id="Photo" name="Photo" class="form-control" required/>
+							</div>
+					 	</div>
+				 	</div>				 	
+				 	<div class="row">
+					 	<div class="form-group">
+							<input type="submit" id="btn" name="btn" class="btn btn-primary float-right" required value="Submit"/>
+					 	</div>
+				 	</div>
+				 	</form>
+		 		</div>
+		 	</div>
+	 </div>
+	 <div class="row">
+	 		<div class="col-lg-6">
+				<a class="quick-btn btn-metis-2" href="./custFrom.html">
+                    <i class="icon-file-text icon-2x"></i>
+                    <span>Form</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+                </a>	
+  				<a class="quick-btn btn-metis-2" href="./custPhoto.html">
+                    <i class="icon-camera icon-2x"></i>
+                    <span>Photo</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+                </a>	 			
+				<a class="quick-btn btn-metis-2" href="custFile.html">
+                    <i class="icon-cloud-upload icon-2x"></i>
+                    <span>Upload</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+				</a>
+				<a class="quick-btn btn-metis-2" href="custProfile.html">
+                    <i class="icon-user icon-2x"></i>
+                    <span>Profile</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+				</a>				
+	 		</div>
+	 </div>
+ </div>
+ </BODY>
+ <script>
+ 	$(function(){
+ 		$('.quick-btn').css({color:'#fff'});
+ 	});
+ </script>
+</HTML>

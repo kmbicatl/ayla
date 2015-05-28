@@ -1,0 +1,594 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Tumor Board </TITLE>
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/plugins/switch/static/stylesheets/bootstrap-switch.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/MoneAdmin.css" />
+    <link rel="stylesheet" href="assets/plugins/Font-Awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="assets/plugins/magic/magic.css" />
+
+    <!--END GLOBAL STYLES -->
+
+    <!-- PAGE LEVEL STYLES -->
+     <link rel="stylesheet" href="assets/plugins/validationengine/css/validationEngine.jquery.css" />
+     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+	 <link rel="stylesheet" href="assets/plugins/chosen/chosen.min.css" />
+		<link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+		<link href="assets/plugins/flot/examples/examples.css" rel="stylesheet" />
+	     <link rel="stylesheet" href="assets/plugins/fullcalendar-1.6.2/fullcalendar/fullcalendar.css" />
+		<link rel="stylesheet" href="assets/css/calendar.css" />
+ 		<link href="assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+	<style>
+		.ForMargin {
+			margin:5px;
+		}
+	</style>
+    <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+    <script src="assets/plugins/angular.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+     <script src="assets/plugins/fullcalendar-1.6.2/fullcalendar/fullcalendar.min.js"></script>  
+   <script src="assets/js/calendarInit.js"></script>
+	<script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="assets/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/plugins/morris/morris.js"></script>
+	<script>
+function setValues(){
+	var myData = {
+		'default':{
+			firstName:'',
+			lastName:'Patient Name',
+			email:'Email',
+			photo:'EmptyUser.png',
+			history:[]
+		},
+		1001:{
+			firstName:'Andrew',
+			lastName:'Partlow',
+			email:'andrew@xyz.com',
+			photo:'1001.png',
+			history:[
+				{date:'Wed, March 05, 2014 at 12:00',doctor:'Tammy',fileType:['<button class="btn btn-primary" title="Notes"><i class="icon icon-comment"></i></button>','<button class="btn btn-success" title="Imaging"><i class="icon icon-file-text-alt"></i></button>','<button class="btn btn-warning"><i class="icon icon-lightbulb"></i></button>']},
+				{date:'Sat, April 12, 2014 at 14:25',doctor:'Smith',fileType:['<button class="btn btn-primary" title="Notes"><i class="icon icon-comment"></i></button>']},
+				{date:'Tue, Jun 17, 2014 at 18:25',doctor:'Tammy',fileType:['<button class="btn btn-primary" title="Notes"><i class="icon icon-comment"></i></button>']},
+				{date:'Tue, Sep 02, 2014 at 11:15',doctor:'Tammy',fileType:['<button class="btn btn-primary" title="Notes"><i class="icon icon-comment"></i></button>']}
+				
+			]
+		},
+		1002:{
+			firstName:'Shiela',
+			lastName:'Bowlers',
+			email:'shiela@yahoo.com',
+			photo:'1002.jpeg',
+			history:[
+				{date:'Fri, March 07, 2014 at 13:00',doctor:'Diana',fileType:['<button class="btn btn-primary" title="Notes"><i class="icon icon-comment"></i></button>']},
+				{date:'Mon, April 14, 2014 at 12:25',doctor:'Rob',fileType:['<button class="btn btn-primary" title="Notes"><i class="icon icon-comment"></i></button>']}
+			]	
+		}
+		
+	}
+	var vPatientObj = myData[$('#patientId').val()];
+	if(!vPatientObj){
+		vPatientObj = myData['default'];
+	}
+	$('#patientName').html('<h4>'+vPatientObj.lastName+', '+vPatientObj.firstName+'</h4>');
+	$('#emailId').text(vPatientObj.email);
+	$('#imgPatient').attr('src','./'+vPatientObj.photo);
+	$('#aFile').src = './'+$('#patientId').val()+'.txt';
+	
+	 var oTable = $('#tblHistory').dataTable();
+				 oTable.fnClearTable();
+				 var cnt = 0;
+				 var dataLen = vPatientObj.history.length;
+				 while(cnt < dataLen){
+					 oTable.fnAddData([vPatientObj.history[cnt].date,vPatientObj.history[cnt].doctor,vPatientObj.history[cnt].fileType.join(' ')],false);
+ 					 cnt++;
+				 }				 
+				 oTable.fnDraw();
+	$('#aHistory').click();
+	$('INPUT[TEXT]').fadeIn(3000,function(){
+		$('INPUT[TEXT]').fadOut(3000);
+	});
+}
+
+function getCustomers(othis){
+	var myData = {token:$('#token').val(),_module:'/khAppCustomerSearch',query:{'mrnId':$('#mrnId').val()}}
+			$.ajax({url:'/external',data:myData})
+				.always(function(data){
+				data = JSON.parse(data);
+						$('#bdy').html('<h2>'+JSON.stringify(data)+'</h2>');
+						myToken = data.token;
+						$('#imgPatient').attr('src','http://localhost:8080/'+data.list[0].filePath);
+						console.log('http://localhost:8080/'+data.list[0].filePath);
+					}
+				)	
+	
+}
+	</script>
+</HEAD>
+ <BODY >
+ 	<div id="bdy"></div>
+ 	<div class="tab-content">
+	 <div class="row">
+			 	<div class="panel panel-primary">
+			 		<div class="panel-heading">
+			 		 Tumor Board
+			 		</div>
+				 	<div class="panel-body">
+		 			 	<div class="row">
+				<div class="form-group input-group panel-body">
+				<input type="text" id="token" name="token" placeholder="Token..." class="form-control input"><br/>
+				<form id="frmSearch" name="frmSearch">
+				<input type="formatedNames" placeHolder="Search By PatientId, firstName, lastName, Email..." id="mrnId" name="mrnId" class="form-control input-lg" required onchange="getCustomers(this)"/>
+				</form>
+				<span class="input-group-addon"><i class="icon icon-search"></i></span>
+				</div>
+							<div class="col-lg-12">
+								<div class="row">
+								 	<div class="form-group">
+										<div class="col-lg-3">
+											<div class="panel panel-primary col-lg-12">
+											 	<div class="panel-body" style="padding:0px">
+											 		<img id="imgPatient" src ='./emptyUser.png' width="300"  />
+											 		<div id="patientName" style="text-align:center">Patient Name</div>
+											 		<a href="#"><h4 id="emailId" style="text-align:center">Email </h4></a> 
+											 	</div>
+									 		</div>
+								 		</div>
+							 		</div>
+							 	<div class="col-lg-9">
+							 		<div class="row">
+							 			<!--<a class="quick-btn btn-metis-2" href="#contDashboard" data-toggle="tab">
+						                    <i class="icon-bar-chart icon-2x"></i>
+						                    <span>Dashboard</span>
+						                </a>-->	 
+							 			<a id="aHistory" class="quick-btn btn-metis-2" href="#contHistory" data-toggle="tab">
+						                    <i class="icon-time icon-2x"></i>
+						                    <span>History</span>
+						                    <!--<span class="label label-danger">+ 2</span>-->
+						                </a>	 
+							 			<a class="quick-btn btn-metis-2" href="#contAppointments" data-toggle="tab">
+						                    <i class="icon-calendar icon-2x"></i>
+						                    <span>Appointments</span>
+						                    <!--<span class="label label-danger">+ 2</span>-->
+						                </a>	 
+							 			<a class="quick-btn btn-metis-2" href="#contLabReports" data-toggle="tab">
+						                    <i class="icon-plus-sign icon-2x"></i>
+						                    <span>Imaging</span>
+						                    <!--<span class="label label-danger">+ 2</span>-->
+						                </a>	 
+							 			<a class="quick-btn btn-metis-2" href="#contLabReports" data-toggle="modal" data-target="#divLabBiopsis">
+						                    <i class="icon-plus-sign icon-2x"></i>
+						                    <span>Lab/Biopsies</span>
+						                    <!--<span class="label label-danger">+ 2</span>-->
+						                </a>	 
+							 			<a class="quick-btn btn-metis-2" href="#contLabReports" data-toggle="modal" data-target="#divCardiology">
+						                    <i class="icon-plus-sign icon-2x"></i>
+						                    <span>Cardiology</span>
+						                    <!--<span class="label label-danger">+ 2</span>-->
+						                </a>	 
+							 			<a class="quick-btn btn-metis-2" href="#contNotes" data-toggle="tab">
+						                    <i class="icon-file-text icon-2x"></i>
+						                    <span>Discussions</span>
+						                    <!--<span class="label label-danger">+ 2</span>-->
+						                </a>	 
+							 			
+							 		</div>
+							 		<div class="row">
+							 			<div class="tab-content" style="padding:0px">
+							 				<div id="contDashboard" class="tab-pane">
+							 					<div id="content">
+											    	<div class="inner" style="min-height:700px;">
+											                <div class="row">
+											                    <div class="col-lg-12">
+											                        <h2> Other Charts </h2>
+											                    </div>
+											                </div>
+											                <hr />
+											                <div class="row">
+												                    <div class="panel panel-default">
+												                        <div class="panel-heading">
+												                            Area Chart 
+												                        </div>
+												                        <div class="panel-body">
+												                            <div id="morris-area-chart"></div>
+												                        </div>
+												                    </div>
+												                <div class="col-lg-6">
+												                    <div class="panel panel-default">
+												                        <div class="panel-heading">
+												                            Bar Chart 
+												                        </div>
+												                        <div class="panel-body">
+												                            <div id="morris-bar-chart"></div>
+												                        </div>
+												                    </div>
+												                </div>
+											                </div>
+											                <div class="row">
+												                <div class="col-lg-6">
+												                    <div class="panel panel-default">
+												                        <div class="panel-heading">
+												                            Line Chart 
+												                        </div>
+												                        <div class="panel-body">
+												                            <div id="morris-line-chart"></div>
+												                        </div>
+												                    </div>
+												                </div>
+												                <div class="col-lg-6">
+												                    <div class="panel panel-default">
+												                        <div class="panel-heading">
+												                            Donut Chart 
+												                        </div>
+												                        <div class="panel-body">
+												                            <div id="morris-donut-chart"></div>
+												                        </div>
+												                    </div>
+												                </div>
+											                </div>
+											     	</div>
+							 					</div>
+							 				</div>	
+							 				<div id="contHistory" class="tab-pane">
+										 		<div class="panel panel-primary">
+										 			<div class="panel-heading">
+										 				Visit History
+										 			</div>
+										 			<div class="panel-body">
+												 		<table id="tblHistory" class="table table-bordered table-stripe">
+												 			<thead>
+												 				<th>Time Visited
+												 				</th>
+												 				<th>Doctor
+												 				</th>
+												 				<th>#
+												 				</th>
+												 			</thead>
+												 			<tbody>
+												 			</tbody>
+												 		</table>
+										 			</div>
+										 		</div>
+										 	</div>
+									 		<div id="contAppointments" class="tab-pane" style="height:400px">
+									 			 <div id="calendar" class="col-lg-9"></div>
+							 				</div>
+							 				<div id="contLabReports" class="tab-pane">
+							 					<div class="col-lg-12" style="max-height:300px;overflow:auto">
+							 						<div class="panel panel-primary">
+								 						<div class="col-lg-10 panel-body">
+								 							<span>Tumor Stage 1</span>
+								 							<img width="100%" src="./LabReports/1.jpeg" />
+								 						</div>
+								 						<div class="col-lg-10 panel-body">
+								 							<span>Tumor Stage 2</span>
+								 							<img width="100%" src="./LabReports/2.jpeg" />
+								 						</div>
+								 						<div class="col-lg-10 panel-body">
+								 							<span>Tumor Stage 3</span>
+								 							<img width="100%" src="./LabReports/3.jpeg" />
+								 						</div>
+								 						<div class="col-lg-10 panel-body">
+								 							<span>Tumor Stage 4</span>
+								 							<img width="100%" src="./LabReports/4.jpeg" />
+								 						</div>
+							 						</div>
+							 					</div>
+							 				</div>
+							 				<div id="contNotes" class="tab-pane">
+						<div class="chat-panel panel panel-success">
+                            <div class="panel-heading">
+                                <i class="icon-check"></i>
+                                Final Conclusion
+                            </div>
+                            <div class="panel-body" style="height:100px"  contenteditable="true">
+                            	Final Conclusion here
+                            </div>
+                            <div class="panel-heading">
+                                <i class="icon-comments"></i>
+                                Discussion Board Comments
+                            
+                            </div>
+                            <div class="panel-body">
+                                <ul class="chat">
+                                    <li class="left clearfix">
+                                        <span class="chat-img pull-left">
+                                            <img src="assets/img/1.png" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <strong class="primary-font "> Tammy </strong>
+                                                <small class="pull-right text-muted label label-danger">
+                                                    <i class="icon-time"></i> 12 mins ago
+                                                </small>
+                                            </div>
+                                             <br>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="right clearfix">
+                                        <span class="chat-img pull-right">
+                                            <img src="assets/img/2.png" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <small class=" text-muted label label-info">
+                                                    <i class="icon-time"></i> 13 mins ago</small>
+                                                <strong class="pull-right primary-font"> Smith</strong>
+                                            </div>
+                                            <br>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur a dolor, quis ullamcorper ligula sodales.
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="left clearfix">
+                                        <span class="chat-img pull-left">
+                                            <img src="assets/img/3.png" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <strong class="primary-font"> Tammy </strong>
+                                                <small class="pull-right text-muted label label-warning">
+                                                    <i class="icon-time"></i> 12 mins ago
+                                                </small>
+                                            </div>
+                                             <br>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li class="right clearfix">
+                                        <span class="chat-img pull-right">
+                                            <img src="assets/img/4.png" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <small class=" text-muted label label-primary">
+                                                    <i class="icon-time"></i> 13 mins ago</small>
+                                                <strong class="pull-right primary-font"> Smith</strong>
+                                            </div>
+                                            <br>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur a dolor, quis ullamcorper ligula sodales.
+                                            </p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="panel-footer">
+                                <div class="input-group">
+                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your comment here...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success btn-sm" id="btn-chat">
+                                            Send
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        							 				</div>
+									 	</div>
+									 </div>
+							 	</div>
+						 	</div>
+						</div>
+					</div>
+				</div>
+	 </div>
+	 
+	 <div class="row" style="display:none">
+	 		<div class="col-lg-6">
+				<a class="quick-btn btn-metis-2" href="./custForm.html">
+                    <i class="icon-file-text icon-2x"></i>
+                    <span>Form</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+                </a>	 
+                <a class="quick-btn btn-metis-2" href="./custPhoto.html">
+                    <i class="icon-camera icon-2x"></i>
+                    <span>Photo</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+                </a>	 			
+				<a class="quick-btn btn-metis-2" href="custFile.html">
+                    <i class="icon-cloud-upload icon-2x"></i>
+                    <span>Upload</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+				</a>
+				<a class="quick-btn btn-metis-2" href="custProfile.html">
+                    <i class="icon-user icon-2x"></i>
+                    <span>Tumor Board</span>
+                    <!--<span class="label label-danger">+ 2</span>-->
+				</a>				
+	 		</div>
+	 </div>
+ </div>
+<div id="divLabBiopsis" class="modal fade" tabindex="-1" role="modal" aria-hidden="true">
+	<div class="panel panel-primary col-lg-8">
+		<div class="panel-heading">
+			<h4>Lab Reports</h4>
+		</div>
+		<div class="panel-body">
+			<iframe src="./labRe.pdf" style="width:100%;height:300px"></iframe>			
+		</div>
+	</div>
+</div>
+<div id="divCardiology" class="modal fade" tabindex="-1" role="modal" aria-hidden="true">
+	<div class="panel panel-primary col-lg-8">
+		<div class="panel-heading">
+			<h4>Cardiology</h4>
+		</div>
+		<div class="panel-body">
+			<img src="./Cardio2.jpg" />			
+		</div>
+	</div>
+</div>
+ </BODY>
+ <script>
+ 	$(function(){
+ 		$('.quick-btn').css({color:'#fff'});
+ 		CalendarInit();
+ 		 Morris.Area({
+        element: 'morris-area-chart',
+        data: [{
+            period: '2010 Q1',
+            iphone: 2666,
+            ipad: null,
+            itouch: 2647
+        }, {
+            period: '2010 Q2',
+            iphone: 2778,
+            ipad: 2294,
+            itouch: 2441
+        }, {
+            period: '2010 Q3',
+            iphone: 4912,
+            ipad: 1969,
+            itouch: 2501
+        }, {
+            period: '2010 Q4',
+            iphone: 3767,
+            ipad: 3597,
+            itouch: 5689
+        }, {
+            period: '2011 Q1',
+            iphone: 6810,
+            ipad: 1914,
+            itouch: 2293
+        }, {
+            period: '2011 Q2',
+            iphone: 5670,
+            ipad: 4293,
+            itouch: 1881
+        }, {
+            period: '2011 Q3',
+            iphone: 4820,
+            ipad: 3795,
+            itouch: 1588
+        }, {
+            period: '2011 Q4',
+            iphone: 15073,
+            ipad: 5967,
+            itouch: 5175
+        }, {
+            period: '2012 Q1',
+            iphone: 10687,
+            ipad: 4460,
+            itouch: 2028
+        }, {
+            period: '2012 Q2',
+            iphone: 8432,
+            ipad: 5713,
+            itouch: 1791
+        }],
+        xkey: 'period',
+        ykeys: ['iphone', 'ipad', 'itouch'],
+        labels: ['iPhone', 'iPad', 'iPod Touch'],
+        pointSize: 2,
+        hideHover: 'auto',
+        resize: true
+    });
+/*
+    Morris.Donut({
+        element: 'morris-donut-chart',
+        data: [{
+            label: "Download Sales",
+            value: 12
+        }, {
+            label: "In-Store Sales",
+            value: 30
+        }, {
+            label: "Mail-Order Sales",
+            value: 20
+        }],
+        resize: true
+    });
+
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [{
+            y: '2006',
+            a: 100,
+            b: 90
+        }, {
+            y: '2007',
+            a: 75,
+            b: 65
+        }, {
+            y: '2008',
+            a: 50,
+            b: 40
+        }, {
+            y: '2009',
+            a: 75,
+            b: 65
+        }, {
+            y: '2010',
+            a: 50,
+            b: 40
+        }, {
+            y: '2011',
+            a: 75,
+            b: 65
+        }, {
+            y: '2012',
+            a: 100,
+            b: 90
+        }],
+        xkey: 'y',
+        ykeys: ['a', 'b'],
+        labels: ['Series A', 'Series B'],
+        hideHover: 'auto',
+        resize: true
+    });
+
+    Morris.Line({
+        element: 'morris-line-chart',
+        data: [{
+            y: '2006',
+            a: 100,
+            b: 90
+        }, {
+            y: '2007',
+            a: 75,
+            b: 65
+        }, {
+            y: '2008',
+            a: 50,
+            b: 40
+        }, {
+            y: '2009',
+            a: 75,
+            b: 65
+        }, {
+            y: '2010',
+            a: 50,
+            b: 40
+        }, {
+            y: '2011',
+            a: 75,
+            b: 65
+        }, {
+            y: '2012',
+            a: 100,
+            b: 90
+        }],
+        xkey: 'y',
+        ykeys: ['a', 'b'],
+        labels: ['Series A', 'Series B'],
+        hideHover: 'auto',
+        resize: true
+    });*/
+ 	});
+ </script>
+</HTML>

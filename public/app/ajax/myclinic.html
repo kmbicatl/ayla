@@ -1,0 +1,229 @@
+<!-- Bread crumb is created dynamically -->
+<!-- row -->
+<div class="row">
+	
+	<!-- col -->
+	<div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
+		<h1 class="page-title txt-color-blueDark">
+			
+			<!-- PAGE HEADER -->
+			<i class="fa-fw fa fa-home"></i> 
+				Page Header 
+			<span>>  
+				Subtitle
+			</span>
+		</h1>
+	</div>
+	
+</div>
+<!-- end row -->
+
+<!--
+	The ID "widget-grid" will start to initialize all widgets below 
+	You do not need to use widgets if you dont want to. Simply remove 
+	the <section></section> and you can use wells or panels instead 
+	-->
+
+<!-- widget grid -->
+<section id="widget-grid" class="" >
+
+	<!-- row -->
+	<div class="row" >
+		
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" style="text-align:center">
+				<!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					
+					data-widget-colorbutton="false"	
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true" 
+					data-widget-sortable="false"
+					
+				-->
+				<header>
+					<span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+					<h2>Clinic </h2>				
+					
+				</header>
+
+				<!-- widget div-->
+				<div>
+					
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						Dropdown Edit Box
+						<!-- This area used as dropdown edit box -->
+						<!-- Normally there would be an input text box here to change widget title. 
+							Use this area only if plan to let users change widget title --> 
+					</div>
+					<!-- end widget edit box -->
+					
+					<!-- widget content -->
+					<div class="widget-body smart-form">
+						<div class="row">
+							<div class="col col-6">
+								<fieldset>
+										<div class="row">
+											<section style="padding:0px 15px 0px 15px">
+												<label class="input"> <i class="icon-prepend fa fa-plus-square btn-primary"></i>
+													<input type="text" name="name" placeholder="Clinic Name">
+												</label>
+											</section>
+										</div>	
+										<div class="row">
+											<section class="col col-6">
+												<label class="input"> 
+													<input type="text" name="registrationNbr" placeholder="Registration Nbr">
+												</label>
+											</section>
+											<section class="col col-6">
+												<label class="input"> <i class="icon-prepend fa fa-calendar"></i>
+													<input type="text" name="roe" id="roe" placeholder="Registration Expiry">
+												</label>
+											</section>
+										</div>
+										<div class="row">
+											<section class="col col-6">
+												<label class="input"> <i class="icon-prepend fa fa-phone"></i>
+													<input type="tel" name="ph1" placeholder="Frontdesk Nbr" data-mask="(999) 999-9999">
+												</label>
+											</section>
+											<section class="col col-6">
+												<label class="input"> <i class="icon-prepend fa fa-print"></i>
+													<input type="tel" name="fax" placeholder="Fax" data-mask="(999) 999-9999">
+												</label>
+											</section>
+										</div>
+										<div class="row">
+											<section class="col col-6">
+												<label class="input"> <i class="icon-prepend fa fa-envelope-o"></i>
+													<input type="email" name="email" placeholder="Frontdesk Email">
+												</label>
+											</section>
+											<section class="col col-6">
+												<label class="input"> <i class="icon-prepend fa fa-globe"></i>
+													<input type="text" name="website" placeholder="Website">
+												</label>
+											</section>
+										</div>
+									</fieldset>
+									<fieldset>
+										<div class="row">
+											<section class="col col-6">
+												<label class="input"> 
+													<input type="text" name="addr1" placeholder="Address Line 1">
+												</label>
+											</section>
+											<section class="col col-6">
+												<label class="input"> 
+													<input type="text" name="addr2" placeholder="Address Line 2">
+												</label>
+											</section>
+										</div>
+										<div class="row">
+											<section class="col col-6">
+												<label class="input"> 
+													<input type="text" name="city" placeholder="City">
+												</label>
+											</section>
+											<section class="col col-3">
+												<label class="input"> 
+													<input type="text" name="state" placeholder="State">
+												</label>
+											</section>
+											<section class="col col-3">
+												<label class="input"> 
+													<input type="text" name="zip" placeholder="Post Code">
+												</label>
+											</section>
+										</div>	
+									</fieldset>								
+							</div>
+							<div class="col col-6">
+									<fieldset>
+										<div class="row">
+											<section style="padding:0px 15px 0px 15px">
+												<label class="input"> 
+													<input type="text" name="clinicSkill" id="clinicSkill" placeholder="Specialities & Services Offered">
+												</label>
+												<label class="select select-multiple">
+													<select multiple="true" size="7" class="custom-scroll">
+														<optgroup label="Dental">
+															<option value="1">Dental Type 1</option>
+															<option value="2">Dental Type 2</option>
+															<option value="3">Dental Type 3</option>
+															<option value="4">Dental Type 4</option>
+														</optgroup>
+														<optgroup label="Cardiology">
+															<option value="1">Cardiology Type 1</option>
+															<option value="2">Cardiology Type 2</option>
+															<option value="3">Cardiology Type 3</option>
+															<option value="4">Cardiology Type 4</option>
+														</optgroup>												
+													</select>
+												</label>
+											</section>
+										</div>		
+									</fieldset>								
+							</div>
+						</div>
+					<footer>
+						<div class="row">
+							<div class="col col-6">
+								<span class="btn btn-warning" style="float: left">Step 1/3</span>
+							</div>
+							<div class="col col-6">
+								<button class="btn btn-primary">Step 2 >></button>
+							</div>
+						</div>
+					</footer>
+					</div>
+					<!-- end widget content -->
+
+				</div>
+				<!-- end widget div -->
+				
+			</div>
+			<!-- end widget -->
+
+		</article>
+		<!-- WIDGET END -->
+		
+	</div>
+
+	<!-- end row -->
+
+	<!-- row -->
+
+	<div class="row">
+
+		<!-- a blank row to get started -->
+			
+	</div>
+
+	<!-- end row -->
+
+</section>
+<!-- end widget grid -->
+
+<script type="text/javascript">
+	
+	
+	 
+	pageSetUp();
+	
+	/*
+	 * ALL PAGE RELATED SCRIPTS CAN GO BELOW HERE
+	 * eg alert("my home function");
+	 */
+
+	
+</script>
